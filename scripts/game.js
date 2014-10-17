@@ -359,8 +359,7 @@ var Game = function()
 			window.clearInterval(maintimer);
 			canvas.removeEventListener('keydown', changeState , false);
 			state = "play";
-			//_game.play();
-			creditsScreen.play();
+			_game.play();
 		};
 
 		_menuScreen.play   = function(){
@@ -380,6 +379,13 @@ var Game = function()
 		var _creditsScreen  = this;
 		var anyKeyPos 	 = {x:canvas.width / 2 - 120, y:610};
 		var pos 		 = canvas.height / 2  + 150;
+		var _deads = 0;
+		var _turns = 0;
+		var _bonus = 0;
+		var _rank  = 0;
+		var deads_rank = 0;
+		var bonus_rank = 0;
+		var turns_rank = 0;
 
 		var _getBonusCount = function(){
 			var sum = 0;
@@ -418,10 +424,10 @@ var Game = function()
 		};
 
 		var GetRank = function(){
-			var deads_rank = 0;
-			var bonus_rank = 0;
-			var turns_rank = 0;
-
+			_deads = _getDeadsCount();
+			_turns = _getTurnsCount();
+			_bonus = _getBonusCount();
+				
 			if(_deads < 10)
 			   deads_rank = 1;
 			else if(_deads > 10 && _deads <= 20)
@@ -465,10 +471,7 @@ var Game = function()
 		};
 
 		var draw = function(){
-			var _deads = _getDeadsCount();
-			var _turns = _getTurnsCount();
-			var _bonus = _getBonusCount();
-			var _rank  = GetRank();
+			_rank  = GetRank();
 			xcanvas.clearCanvas('#000');
 			xcanvas.drawText('36px Lucida Console','#afa', "CONGRATULATIONS!", canvas.width/2 - 150, 80);
 			xcanvas.drawText('36px Lucida Console','#aff', "Rank:", canvas.width/2 - 230, 160);
