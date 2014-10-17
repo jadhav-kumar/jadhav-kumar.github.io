@@ -98,7 +98,7 @@ var Game = function()
 						 ,2,4,4,3,3,3,5
 						 ,1,2,2,2,2,2,4
 						 ,5,3,3,5,2,3,5,3,5];
-
+	var maxBonuses   = 85;
 	var levels       = [];
 	var passwords    = [];
 	var music        = [];
@@ -112,8 +112,8 @@ var Game = function()
 	var levelBegin   = false;
 	var GameOver     = false;
 	var projectileUpdater = null;
-	var noiseTimer   = -1;
-	var killMessage  = "";
+	var noiseTimer     = -1;
+	var killMessage    = "";
 	var currentMessage = "";
 	var firstLaunch  = true;
 	var turns        = 0;
@@ -467,6 +467,10 @@ var Game = function()
 				case 4: rank = "D"
 				break;
 			}
+
+			if(_bonus > maxBonuses)
+				rank = "C";//"cheater";
+
 			 return rank;
 		};
 
@@ -657,7 +661,6 @@ var Game = function()
 	   };
 
 	   _xcanvas.clearMessage = function(){
-		  //xcanvas.clearRect(0, canvas.height - 111, canvas.width, 80,"#000");
 		  context.putImageData(part,0, canvas.height - 111);
 		  currentMessage = ""; 
 		  if(messages.length > 0)
@@ -1409,8 +1412,7 @@ var Game = function()
 
 		_map.placeObject= function(name,x,y){
 
-			if(name === 'bonus')
-			{
+			if(name === 'bonus'){
 				if(_map.getObjectCount(name) === bonuses[currentLevel]){
 					_map.showMessage(Language.cheaterDetected,'#fff');
 					return;
