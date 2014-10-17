@@ -417,10 +417,6 @@ var Game = function()
 			return sum;
 		};
 
-		var _deads = _getDeadsCount();
-		var _turns = _getTurnsCount();
-		var _bonus = _getBonusCount();
-
 		var GetRank = function(){
 			var deads_rank = 0;
 			var bonus_rank = 0;
@@ -469,26 +465,23 @@ var Game = function()
 		};
 
 		var draw = function(){
-			var _rank = GetRank();
+			var _deads = _getDeadsCount();
+			var _turns = _getTurnsCount();
+			var _bonus = _getBonusCount();
+			var _rank  = GetRank();
 			xcanvas.clearCanvas('#000');
 			xcanvas.drawText('36px Lucida Console','#afa', "CONGRATULATIONS!", canvas.width/2 - 150, 80);
 			xcanvas.drawText('36px Lucida Console','#aff', "Rank:", canvas.width/2 - 230, 160);
 			xcanvas.drawText('36px Lucida Console','#0f0',  _rank, canvas.width - 200, 160);
-
 			xcanvas.drawText('36px Lucida Console','#aff', "Levels:", canvas.width/2 - 230, 200);
 			xcanvas.drawText('36px Lucida Console','#0ff',  maxLevel, canvas.width - 200, 200);
-
 			xcanvas.drawText('36px Lucida Console','#aff', "Stars:", canvas.width/2 - 230, 240);
 			xcanvas.drawText('36px Lucida Console','#0ff',  _bonus, canvas.width - 200, 240);
-
 			xcanvas.drawText('36px Lucida Console','#aff', "Deads:" , canvas.width/2 - 230, 280);
 			xcanvas.drawText('36px Lucida Console','#faa',  _deads, canvas.width - 200, 280);
-
 			xcanvas.drawText('36px Lucida Console','#aff', "Total turns:" , canvas.width/2 - 230, 320);
 			xcanvas.drawText('36px Lucida Console','#faa',  _turns, canvas.width - 200, 320);
-
 			xcanvas.drawText('14px Lucida Console','#aff', "Press any key..." , canvas.width/2 - 70, canvas.height - 50);
-
 			xcanvas.drawText('36px Lucida Console','#afa', "Thank you for playing" , canvas.width/2 - 230, canvas.height - 150);
 		};
 
